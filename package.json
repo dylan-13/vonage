@@ -2,9 +2,6 @@
   "name": "video-express-react-app",
   "version": "0.3.0",
   "private": true,
-  "engines": {
-    "node": "14.x"
-  },
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
@@ -12,7 +9,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@vonage/video-express": "^1.4.1",
+    "@vonage/video-express": "^1.3.6",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "concurrently": "^6.2.0",
@@ -30,8 +27,7 @@
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7",
-    "node": "14.13.00"
+    "nodemon": "^2.0.7"
   },
   "scripts": {
     "start": "DISABLE_ESLINT_PLUGIN=true react-scripts start",
