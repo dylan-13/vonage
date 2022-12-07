@@ -1,23 +1,12 @@
-import { IconButton } from '@material-ui/core';
+import { IconButton } from '@material-ui/core'
+import Drawer from '@material-ui/core/Drawer'
+import Tooltip from '@material-ui/core/Tooltip'
+import ChatIcon from '@material-ui/icons/Chat'
+import React from 'react'
 
-import Tooltip from '@material-ui/core/Tooltip';
-import InfoIcon from '@material-ui/icons/Info';
-import Typography from '@material-ui/core/Typography';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
-import MoreIcon from '@material-ui/icons/More';
-import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly';
-import HouseIcon from '@material-ui/icons/House';
-
-import ChatIcon from '@material-ui/icons/Chat';
-
-import React from 'react';
-import styles from './styles';
-
-import Drawer from '@material-ui/core/Drawer';
-
-import SideMenu from '../SideMenu';
-
-import useSignal from '../../hooks/useSignal';
+import useSignal from '../../hooks/useSignal'
+import SideMenu from '../SideMenu'
+import styles from './styles'
 
 export default function MoreOptionsButton({
   classes,

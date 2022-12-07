@@ -1,53 +1,52 @@
-import { useState } from 'react';
-import { startRecording, stopRecording } from '../../api/fetchRecording';
+import { IconButton } from '@material-ui/core'
+import Tooltip from '@material-ui/core/Tooltip'
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
+import { useState } from 'react'
 
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import { IconButton } from '@material-ui/core';
-import styles from './styles';
-import Tooltip from '@material-ui/core/Tooltip';
+import { startRecording, stopRecording } from '../../api/fetchRecording'
+import styles from './styles'
 
 export default function RecordingButton({ classes, room }) {
-  const [isRecording, setRecording] = useState(false);
-  const [archiveId, setArchiveId] = useState(null);
-  const localClasses = styles();
+  const [isRecording, setRecording] = useState(false)
+  const [archiveId, setArchiveId] = useState(null)
+  const localClasses = styles()
 
-  const handleRecordingStart = async sessionId => {
+  const handleRecordingStart = async (sessionId) => {
     try {
-      const data = await startRecording(sessionId);
+      const data = await startRecording(sessionId)
       if (data.status === 200 && data.data) {
-        const { archiveId } = data.data;
-        setArchiveId(archiveId);
-        setRecording(true);
+        const { archiveId } = data.data
+        setArchiveId(archiveId)
+        setRecording(true)
       }
     } catch (e) {
-      setRecording(false);
+      setRecording(false)
     }
-  };
+  }
 
-  const handleRecordingStop = async archiveId => {
+  const handleRecordingStop = async (archiveId) => {
     try {
       if (isRecording) {
-        const data = await stopRecording(archiveId);
+        const data = await stopRecording(archiveId)
         if (data.status === 200 && data.data) {
-          const { status } = data.data;
-          setRecording(false);
+          setRecording(false)
         }
       }
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
   const handleRecordingAction = () => {
     if (room) {
-      const sessionId = room.roomId;
+      const sessionId = room.roomId
       isRecording
         ? handleRecordingStop(archiveId)
-        : handleRecordingStart(sessionId);
+        : handleRecordingStart(sessionId)
     }
-  };
+  }
 
-  const title = isRecording ? 'Stop Recording' : 'Start Recording';
+  const title = isRecording ? "Stop Recording" : "Start Recording"
 
   return (
     <Tooltip title={title} aria-label="add">
@@ -62,12 +61,12 @@ export default function RecordingButton({ classes, room }) {
           <FiberManualRecordIcon
             fontSize="inherit"
             className={localClasses.activeRecordingIcon}
-            style={{ color: '#D50F2C' }}
+            style={{ color: "#D50F2C" }}
           />
         ) : (
           <FiberManualRecordIcon fontSize="inherit" />
         )}
       </IconButton>
     </Tooltip>
-  );
+  )
 }

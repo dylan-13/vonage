@@ -1,48 +1,49 @@
-import React from "react";
-import * as VideoExpress from "@vonage/video-express";
-import BlurOn from "@material-ui/icons/BlurOn";
-import BlurCircular from "@material-ui/icons/BlurCircular";
-import BlockIcon from "@material-ui/icons/Block";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import useStyles from "./styles";
+import CircularProgress from '@material-ui/core/CircularProgress'
+import BlockIcon from '@material-ui/icons/Block'
+import BlurCircular from '@material-ui/icons/BlurCircular'
+import BlurOn from '@material-ui/icons/BlurOn'
+import * as VideoExpress from '@vonage/video-express'
+import React from 'react'
 
-const backgroundImages = ["vonage_background", "simpson_background"];
+import useStyles from './styles'
+
+const backgroundImages = ["vonage_background", "simpson_background"]
 
 function VideoFilter({ handleChangeVideoFilter }) {
-  const classes = useStyles();
-  const [loading, setLoading] = React.useState(false);
+  const classes = useStyles()
+  const [loading, setLoading] = React.useState(false)
 
   const applyFilter = async (filterName, filterPayload) => {
-    setLoading(true);
+    setLoading(true)
     switch (filterName) {
       case "backgroundImage":
-        const imageEl = await loadImage(filterPayload);
-        await handleChangeVideoFilter("backgroundImage", imageEl);
-        break;
+        const imageEl = await loadImage(filterPayload)
+        await handleChangeVideoFilter("backgroundImage", imageEl)
+        break
       default:
-        await handleChangeVideoFilter(filterName, filterPayload);
+        await handleChangeVideoFilter(filterName, filterPayload)
     }
-    setLoading(false);
-  };
+    setLoading(false)
+  }
 
   const loadImage = (name) => {
     return fetch(`${process.env.PUBLIC_URL}/backgrounds/${name}.jpeg`)
       .then((res) => res.blob())
       .then((blob) => blobToBase64(blob))
       .then((base64) => {
-        return base64;
-      });
-  };
+        return base64
+      })
+  }
 
   const blobToBase64 = (blob) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(blob);
+    const reader = new FileReader()
+    reader.readAsDataURL(blob)
     return new Promise((resolve) => {
       reader.onloadend = () => {
-        resolve(reader.result);
-      };
-    });
-  };
+        resolve(reader.result)
+      }
+    })
+  }
 
   if (VideoExpress.hasMediaProcessorSupport()) {
     return (
@@ -54,17 +55,46 @@ function VideoFilter({ handleChangeVideoFilter }) {
               <CircularProgress />
             </div>
           )}
-          <div className={classes.buttonContainer} onClick={() => applyFilter("reset", "")}>
+          <div
+            className={classes.buttonContainer}
+            onClick={() => applyFilter("reset", "")}
+          >
             <BlockIcon
-              style={{ transform: "scale(1.5)", position: "absolute", top: "calc(50% - 10px)", left: "calc(50% - 10px)", fontSize: "21px" }}
+              style={{
+                transform: "scale(1.5)",
+                position: "absolute",
+                top: "calc(50% - 10px)",
+                left: "calc(50% - 10px)",
+                fontSize: "21px",
+              }}
             />
           </div>
-          <div className={classes.buttonContainer} onClick={() => applyFilter("blur", "low")}>
-            <BlurOn style={{ transform: "scale(1.5)", position: "absolute", top: "calc(50% - 10px)", left: "calc(50% - 10px)", fontSize: "21px" }} />
+          <div
+            className={classes.buttonContainer}
+            onClick={() => applyFilter("blur", "low")}
+          >
+            <BlurOn
+              style={{
+                transform: "scale(1.5)",
+                position: "absolute",
+                top: "calc(50% - 10px)",
+                left: "calc(50% - 10px)",
+                fontSize: "21px",
+              }}
+            />
           </div>
-          <div className={classes.buttonContainer} onClick={() => applyFilter("blur", "high")}>
+          <div
+            className={classes.buttonContainer}
+            onClick={() => applyFilter("blur", "high")}
+          >
             <BlurCircular
-              style={{ transform: "scale(1.5)", position: "absolute", top: "calc(50% - 10px)", left: "calc(50% - 10px)", fontSize: "21px" }}
+              style={{
+                transform: "scale(1.5)",
+                position: "absolute",
+                top: "calc(50% - 10px)",
+                left: "calc(50% - 10px)",
+                fontSize: "21px",
+              }}
             />
           </div>
           {backgroundImages.map((img) => (
@@ -78,9 +108,9 @@ function VideoFilter({ handleChangeVideoFilter }) {
           ))}
         </div>
       </div>
-    );
+    )
   }
-  return null;
+  return null
 }
 
-export default VideoFilter;
+export default VideoFilter

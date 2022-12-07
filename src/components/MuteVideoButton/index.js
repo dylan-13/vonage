@@ -1,81 +1,98 @@
-import VideoCam from "@material-ui/icons/Videocam";
-import VideocamOff from "@material-ui/icons/VideocamOff";
-import { IconButton } from "@material-ui/core";
-import Tooltip from "@material-ui/core/Tooltip";
-import useDevices from "../../hooks/useDevices";
+import { IconButton } from '@material-ui/core'
+import ButtonGroup from '@material-ui/core/ButtonGroup'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener'
+import Grow from '@material-ui/core/Grow'
+import MenuItem from '@material-ui/core/MenuItem'
+import MenuList from '@material-ui/core/MenuList'
+import Paper from '@material-ui/core/Paper'
+import Popper from '@material-ui/core/Popper'
+import Tooltip from '@material-ui/core/Tooltip'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import VideoCam from '@material-ui/icons/Videocam'
+import VideocamOff from '@material-ui/icons/VideocamOff'
+import React from 'react'
 
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
-import Popper from "@material-ui/core/Popper";
-import MenuItem from "@material-ui/core/MenuItem";
-import MenuList from "@material-ui/core/MenuList";
-import React from "react";
-import styles from "./styles.js";
-import { UserContext } from "../../context/UserContext";
+import useDevices from '../../hooks/useDevices'
+import styles from './styles.js'
 
-export default function MuteVideoButton({ classes, hasVideo, toggleVideo, getVideoSource, cameraPublishing, changeVideoSource }) {
-  const title = hasVideo ? "Disable Camera" : "Enable Camera";
-  const { deviceInfo } = useDevices();
-  const [devicesAvailable, setDevicesAvailable] = React.useState(null);
-  const [options, setOptions] = React.useState([]);
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const localClasses = styles();
-  const { user } = React.useContext(UserContext);
+export default function MuteVideoButton({
+  classes,
+  hasVideo,
+  toggleVideo,
+  getVideoSource,
+  cameraPublishing,
+  changeVideoSource,
+}) {
+  const title = hasVideo ? "Disable Camera" : "Enable Camera"
+  const { deviceInfo } = useDevices()
+  const [devicesAvailable, setDevicesAvailable] = React.useState(null)
+  const [options, setOptions] = React.useState([])
+  const [open, setOpen] = React.useState(false)
+  const anchorRef = React.useRef(null)
+  const [selectedIndex, setSelectedIndex] = React.useState(0)
+  const localClasses = styles()
 
   React.useEffect(() => {
-    setDevicesAvailable(deviceInfo.videoInputDevices);
+    setDevicesAvailable(deviceInfo.videoInputDevices)
     if (cameraPublishing) {
-      const currentDeviceId = getVideoSource()?.deviceId;
+      const currentDeviceId = getVideoSource()?.deviceId
 
-      const IndexOfSelectedElement = devicesAvailable.indexOf(devicesAvailable.find((e) => e.deviceId === currentDeviceId));
-      setSelectedIndex(IndexOfSelectedElement);
+      const IndexOfSelectedElement = devicesAvailable.indexOf(
+        devicesAvailable.find((e) => e.deviceId === currentDeviceId)
+      )
+      setSelectedIndex(IndexOfSelectedElement)
     }
-  }, [cameraPublishing, getVideoSource, deviceInfo, devicesAvailable]);
+  }, [cameraPublishing, getVideoSource, deviceInfo, devicesAvailable])
 
   React.useEffect(() => {
     if (devicesAvailable) {
       const videoDevicesAvailable = devicesAvailable.map((e) => {
-        return e.label;
-      });
-      setOptions(videoDevicesAvailable);
+        return e.label
+      })
+      setOptions(videoDevicesAvailable)
     }
     // if (user.videoEffects.backgroundBlur)
     //   setOptions(['Not available with Background Blurring']);
-  }, [devicesAvailable]);
+  }, [devicesAvailable])
 
   const handleChangeVideoSource = (event, index) => {
-    setSelectedIndex(index);
-    setOpen(false);
-    const videoDeviceId = devicesAvailable.find((device) => device.label === event.target.textContent).deviceId;
-    changeVideoSource(videoDeviceId);
-  };
+    setSelectedIndex(index)
+    setOpen(false)
+    const videoDeviceId = devicesAvailable.find(
+      (device) => device.label === event.target.textContent
+    ).deviceId
+    changeVideoSource(videoDeviceId)
+  }
 
   const handleToggle = (e) => {
-    setOpen((prevOpen) => !prevOpen);
-  };
+    setOpen((prevOpen) => !prevOpen)
+  }
 
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
+      return
     }
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   return (
     <>
-      <ButtonGroup className={classes.groupButton} disableElevation variant="contained" ref={anchorRef} aria-label="split button">
+      <ButtonGroup
+        className={classes.groupButton}
+        disableElevation
+        variant="contained"
+        ref={anchorRef}
+        aria-label="split button"
+      >
         <Tooltip title={title} aria-label="add">
           <IconButton
             onClick={toggleVideo}
             edge="start"
             aria-label="videoCamera"
             size="small"
-            className={`${classes.arrowButton} ${!hasVideo ? classes.disabledButton : ""}`}
+            className={`${classes.arrowButton} ${
+              !hasVideo ? classes.disabledButton : ""
+            }`}
           >
             {!hasVideo ? <VideocamOff /> : <VideoCam />}
           </IconButton>
@@ -105,7 +122,8 @@ export default function MuteVideoButton({ classes, hasVideo, toggleVideo, getVid
           <Grow
             {...TransitionProps}
             style={{
-              transformOrigin: placement === "bottom" ? "center top" : "center bottom",
+              transformOrigin:
+                placement === "bottom" ? "center top" : "center bottom",
             }}
           >
             <Paper>
@@ -132,5 +150,5 @@ export default function MuteVideoButton({ classes, hasVideo, toggleVideo, getVid
         )}
       </Popper>
     </>
-  );
+  )
 }

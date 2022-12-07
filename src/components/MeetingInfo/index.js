@@ -1,27 +1,27 @@
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Typography from '@material-ui/core/Typography';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
-import MoreIcon from '@material-ui/icons/More';
-import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly';
-import HouseIcon from '@material-ui/icons/House';
-import styles from './styles';
-import Tooltip from '@material-ui/core/Tooltip';
-import useCopyMeetingUrl from '../../hooks/useCopyMeetingUrl';
-import QRCode from 'qrcode.react';
+import Button from '@material-ui/core/Button'
+import Divider from '@material-ui/core/Divider'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import Tooltip from '@material-ui/core/Tooltip'
+import Typography from '@material-ui/core/Typography'
+import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly'
+import FileCopyIcon from '@material-ui/icons/FileCopy'
+import HouseIcon from '@material-ui/icons/House'
+import MoreIcon from '@material-ui/icons/More'
+import QRCode from 'qrcode.react'
+import React from 'react'
 
-import React from 'react';
+import useCopyMeetingUrl from '../../hooks/useCopyMeetingUrl'
+import styles from './styles'
+
 const MeetingInfo = ({ roomId }) => {
   const { copyUrl } = useCopyMeetingUrl();
   const [title, setTitle] = React.useState('Copy');
   const ListItemLink = (props) => {
     return <ListItem button component="a" {...props} />;
   };
-  const titleToolTip = 'Meeting Info';
 
   const handleClick = () => {
     setTitle('Copied');

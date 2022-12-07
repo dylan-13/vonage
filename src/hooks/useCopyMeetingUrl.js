@@ -1,9 +1,9 @@
-import React, { useState, useRef } from 'react';
+import { useCallback } from 'react'
 
 export default function useCopyMeetingUrl() {
-  const copyUrl = React.useCallback(() => {
+  const copyUrl = useCallback(() => {
     //https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard
-    const url = window.location.href;
+    const url = window.location.href
     navigator.clipboard.writeText(url).then(
       () => {
         // console.log('Meeting URL copied');
@@ -11,10 +11,10 @@ export default function useCopyMeetingUrl() {
       () => {
         // console.log('Copy failed');
       }
-    );
-  }, []);
+    )
+  }, [])
 
   return {
-    copyUrl
-  };
+    copyUrl,
+  }
 }

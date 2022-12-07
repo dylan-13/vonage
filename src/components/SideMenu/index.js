@@ -1,35 +1,23 @@
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
-import MeetingInfo from '../MeetingInfo';
-import Chat from '../Chat';
-import List from '@material-ui/core/List';
-import PersonIcon from '@material-ui/icons/Person';
-import GroupIcon from '@material-ui/icons/Group';
-import Divider from '@material-ui/core/Divider';
+import { Container } from '@material-ui/core'
+import AppBar from '@material-ui/core/AppBar'
+import Box from '@material-ui/core/Box'
+import Divider from '@material-ui/core/Divider'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import Tab from '@material-ui/core/Tab'
+import Tabs from '@material-ui/core/Tabs'
+import GroupIcon from '@material-ui/icons/Group'
+import PersonIcon from '@material-ui/icons/Person'
+import React from 'react'
 
-import AppBar from '@material-ui/core/AppBar';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import TimerIcon from '@material-ui/icons/Timer';
-
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import { Container } from '@material-ui/core';
-
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-  },
-});
+import Chat from '../Chat'
+import MeetingInfo from '../MeetingInfo'
 
 function TabPanel(props) {
   //   const [value, setValue] = React.useState(0);
-  const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props
 
   return (
     <div
@@ -45,20 +33,20 @@ function TabPanel(props) {
         </Container>
       )}
     </div>
-  );
+  )
 }
 
 const SideMenu = ({ participants, room, localParticipant, listOfMessages }) => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(0)
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
 
   function a11yProps(index) {
     return {
       id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
-    };
+      "aria-controls": `simple-tabpanel-${index}`,
+    }
   }
 
   return (
@@ -85,7 +73,7 @@ const SideMenu = ({ participants, room, localParticipant, listOfMessages }) => {
           {participants && (
             //Adding +! as currently participants do not include self
             <>
-              <ListItem key={'participants_counter'}>
+              <ListItem key={"participants_counter"}>
                 <ListItemIcon>
                   <GroupIcon variant="contained" color="primary" />
                 </ListItemIcon>
@@ -118,12 +106,12 @@ const SideMenu = ({ participants, room, localParticipant, listOfMessages }) => {
 
                   <Divider />
                 </>
-              );
+              )
             })}
         </List>
       </TabPanel>
     </div>
-  );
-};
+  )
+}
 
-export default SideMenu;
+export default SideMenu
