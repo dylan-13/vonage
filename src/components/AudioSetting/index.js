@@ -1,7 +1,6 @@
-import React from 'react';
-
-import Mic from '@material-ui/icons/Mic';
-import Switch from '@material-ui/core/Switch';
+import Switch from '@material-ui/core/Switch'
+import Mic from '@material-ui/icons/Mic'
+import React from 'react'
 
 const AudioSettings = ({ hasAudio, onAudioChange, className }) => {
   return (
@@ -10,7 +9,7 @@ const AudioSettings = ({ hasAudio, onAudioChange, className }) => {
       <div>Microphone</div>
       <Switch checked={hasAudio} onChange={onAudioChange} name="AudioToggle" />
     </div>
-  );
-};
+  )
+}
 
-export default AudioSettings;
+export default AudioSettings
