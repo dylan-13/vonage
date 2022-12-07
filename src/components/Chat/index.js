@@ -1,17 +1,18 @@
-import React from 'react';
-import ChatInput from '../ChatInput';
-import styles from './styles';
-import useSignal from '../../hooks/useSignal';
-import ChatMessages from '../ChatMessages';
+import React from 'react'
+
+import useSignal from '../../hooks/useSignal'
+import ChatInput from '../ChatInput'
+import ChatMessages from '../ChatMessages'
+import styles from './styles'
 
 const Chat = ({ room, listOfMessages }) => {
-  const { sendSignal } = useSignal({ room });
+  const { sendSignal } = useSignal({ room })
 
   const sendMessage = (text) => {
-    if (room) sendSignal(text, 'text');
-  };
+    if (room) sendSignal(text, "text")
+  }
 
-  const classes = styles();
+  const classes = styles()
 
   return (
     <div className={classes.chatContainer}>
@@ -23,7 +24,7 @@ const Chat = ({ room, listOfMessages }) => {
         <ChatInput sendMessage={sendMessage}></ChatInput>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Chat;
+export default Chat
